@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`JobScreening Component > displays an error message when API fails 1`] = `
+<DocumentFragment>
+  <div
+    class="text-xl"
+  >
+    Screening
+  </div>
+  <div
+    class="text-base text-gray-500"
+  >
+    List empty
+  </div>
+</DocumentFragment>
+`;
+
+exports[`JobScreening Component > percentage shows after clicking the button 1`] = `
+<DocumentFragment>
+  <div
+    class="text-xl"
+  >
+    Screening
+  </div>
+  <div
+    class="text-base text-gray-500"
+  >
+    List empty
+  </div>
+</DocumentFragment>
+`;
+
+exports[`JobScreening Component > renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="text-xl"
+  >
+    Screening
+  </div>
+  <div
+    class="text-base text-gray-500"
+  >
+    List empty
+  </div>
+</DocumentFragment>
+`;
