@@ -15,7 +15,7 @@ const jobSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: 'open',
+    default: "open",
   },
   location: {
     type: String,
@@ -37,22 +37,13 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  question1: {
-    type: String,
-    required: true,
-  },
-  question2: {
-    type: String,
-    required: true,
-  },
-  question3: {
-    type: String,
-    required: true,
-  },
-  question4: {
-    type: String,
-    required: true,
-  },
+  questions: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+  
 });
 
 const Job = mongoose.model("Job", jobSchema);

@@ -1,3 +1,4 @@
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { useUserStore } from "../../store/UserStore";
 import { Button } from "@mui/material";
@@ -5,13 +6,6 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-type FormValuesQuestions = {
-  question1: string;
-  question2: string;
-  question3: string;
-  question4: string;
-};
 
 type FormValuesDetails = {
   role: string;
@@ -25,10 +19,8 @@ type FormValuesDetails = {
 const JobPreview = () => {
   const location = useLocation();
   const { state } = location;
-  const {
-    details,
-    questions,
-  }: { details: FormValuesDetails; questions: FormValuesQuestions } = state;
+  const { details, questions }: { details: FormValuesDetails; questions: string[] } =
+    state;
 
   const navigate = useNavigate();
   const userId = useUserStore((state) => state.id);
@@ -44,10 +36,7 @@ const JobPreview = () => {
       location: details.location,
       description: details.description,
       pay: details.pay,
-      question1: questions.question1,
-      question2: questions.question2,
-      question3: questions.question3,
-      question4: questions.question4,
+      questions: questions,
       requiredSkills: details.requiredSkills,
     };
 
@@ -57,15 +46,13 @@ const JobPreview = () => {
         return;
       }
       toast.success("Job created");
-      console.log(details);
-      navigate('/job-preview', { state: { details, questions } });
       navigate("/dashboard");
     });
   };
 
   useEffect(() => {
     console.log(state);
-  }, []);
+  }, [state]);
 
   return (
     <>
@@ -105,7 +92,7 @@ const JobPreview = () => {
               <div className="flex flex-col ">
                 <div>
                   <span className="font-semibold text-lg">Role:</span>&nbsp;
-                  {details["role"]}
+                  {details.role}
                 </div>
                 <div>
                   <span className="font-semibold text-lg">Job Status:</span>
@@ -113,53 +100,42 @@ const JobPreview = () => {
                   <span className={`capitalize ${"text-green-500"}`}>open</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-lg capitalize">
-                    Type:
-                  </span>
+                  <span className="font-semibold text-lg capitalize">Type:</span>
                   &nbsp;
                   <span className="capitalize">
-                    {details["jobtype"].split("-").join(" ")}
+                    {details.jobtype.split("-").join(" ")}
                   </span>
                 </div>
                 <div>
                   <span className="font-semibold text-lg">Location:</span>
                   &nbsp;
-                  {details["location"]}
+                  {details.location}
                 </div>
                 <div>
                   <span className="font-semibold text-lg">Pay:</span>
                   &nbsp;
-                  {details["pay"]}$/hr
+                  {details.pay}$/hr
                 </div>
               </div>
             </div>
             <div className="text-lg border-b border-gray-300 mb-2 font-bold">
               Description
             </div>
-            <div className="text-[#686868] mx-2">{details["description"]}</div>
+            <div className="text-[#686868] mx-2">{details.description}</div>
 
             <div className="text-lg border-b border-gray-300 mb-2 font-bold">
               Required Skills
             </div>
-            <div className="text-[#686868] mx-2">
-              {details.requiredSkills}
-            </div>
+            <div className="text-[#686868] mx-2">{details.requiredSkills}</div>
 
             <div className="text-lg border-b border-gray-300 mb-2 font-bold">
               Questions
             </div>
-            <div className="text-[#686868] mx-2">
-              1: {questions["question1"]}
-            </div>
-            <div className="text-[#686868] mx-2">
-              2: {questions["question2"]}
-            </div>
-            <div className="text-[#686868] mx-2">
-              3: {questions["question3"]}
-            </div>
-            <div className="text-[#686868] mx-2">
-              4: {questions["question4"]}
-            </div>
+            {questions.map((question: string, index: number) => (
+              <div key={index} className="text-[#686868] mx-2">
+                {index + 1}: {question}
+              </div>
+            ))}
             <div className="mt-4 ">
               <Button
                 onClick={onSubmit}
@@ -184,3 +160,4 @@ const JobPreview = () => {
 };
 
 export default JobPreview;
+

@@ -164,8 +164,6 @@ module.exports.getProfile = async function (req, res) {
       message: "The User info is",
 
       data: {
-        //user.JSON() part gets encrypted
-
         //token: jwt.sign(user.toJSON(), env.jwt_secret, { expiresIn: "100000" }),
         user: user,
       },
@@ -205,11 +203,6 @@ module.exports.editProfile = async function (req, res) {
       message: "User is updated Successfully",
 
       data: {
-        //user.JSON() part gets encrypted
-
-        // token: jwt.sign(user.toJSON(), env.jwt_secret, {
-        //   expiresIn: "100000",
-        // }),
         user,
       },
       success: true,
@@ -221,11 +214,7 @@ module.exports.editProfile = async function (req, res) {
       message: "Internal Server Error",
     });
   }
-  // } else {
-  //   return res.json(400, {
-  //     message: "Bad Request",
-  //   });
-  // }
+  
 };
 module.exports.searchUser = async function (req, res) {
   try {
@@ -293,10 +282,7 @@ module.exports.createJob = async function (req, res) {
       description: req.body.description,
       pay: req.body.pay,
       requiredSkills: req.body.requiredSkills,
-      question1: req.body.question1,
-      question2: req.body.question2,
-      question3: req.body.question3,
-      question4: req.body.question4,
+      questions: req.body.questions,
     });
     res.set("Access-Control-Allow-Origin", "*");
     return res.json(200, {
@@ -340,9 +326,6 @@ module.exports.fetchApplication = async function (req, res) {
 };
 
 module.exports.createApplication = async function (req, res) {
-  // let user = await User.findOne({ _id: req.body.id });
-  // check = req.body.skills;
-
   try {
     const existingApplication = await Application.findOne({
       applicantid: req.body.applicantId,
@@ -399,10 +382,8 @@ module.exports.modifyApplication = async function (req, res) {
 
     //change answer only from screening to grading
     if (req.body.status === "grading") {
-      application.answer1 = req.body.answer1;
-      application.answer2 = req.body.answer2;
-      application.answer3 = req.body.answer3;
-      application.answer4 = req.body.answer4;
+      application.answers = req.body.answers;
+      // application.answer4 = req.body.answer4;
     }
 
     if (req.body.status === "rating") {
@@ -438,11 +419,6 @@ module.exports.acceptApplication = async function (req, res) {
       message: "Application is updated Successfully",
 
       data: {
-        //user.JSON() part gets encrypted
-
-        // token: jwt.sign(user.toJSON(), env.jwt_secret, {
-        //   expiresIn: "100000",
-        // }),
         application,
       },
       success: true,
@@ -468,11 +444,7 @@ module.exports.rejectApplication = async function (req, res) {
       message: "Application is updated Successfully",
 
       data: {
-        //user.JSON() part gets encrypted
-
-        // token: jwt.sign(user.toJSON(), env.jwt_secret, {
-        //   expiresIn: "100000",
-        // }),
+      
         application,
       },
       success: true,
@@ -498,11 +470,6 @@ module.exports.closeJob = async function (req, res) {
       message: "Job is updated Successfully",
 
       data: {
-        //user.JSON() part gets encrypted
-
-        // token: jwt.sign(user.toJSON(), env.jwt_secret, {
-        //   expiresIn: "100000",
-        // }),
         job,
       },
       success: true,

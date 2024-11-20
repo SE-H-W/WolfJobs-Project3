@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { useUserStore } from "../../store/UserStore";
 import { useForm } from "react-hook-form";
@@ -9,13 +7,7 @@ import { useEffect, useState } from "react";
 import { useApplicationStore } from "../../store/ApplicationStore";
 import { Stack, TextField } from "@mui/material";
 import JobManagerView from "./JobManagerView";
-
-type FormValues = {
-  answer1: string;
-  answer2: string;
-  answer3: string;
-  answer4: string;
-};
+import SuggestedKeywords from "../JobKeywords/SuggestedKeywords";
 
 const JobDetail = (props: any) => {
   const { jobData }: { jobData: Job } = props;
@@ -46,7 +38,7 @@ const JobDetail = (props: any) => {
       }
     );
     setApplication(temp || null);
-  }, [jobData]);
+  }, [jobData, applicationList, userId]);
 
   useEffect(() => {
     if (role === "Manager") {
@@ -60,7 +52,7 @@ const JobDetail = (props: any) => {
       );
       setShowQuestionnaire(!!temp || false);
     }
-  }, [jobData, applicationList, userId]);
+  }, [jobData, applicationList, userId, role]);
 
   useEffect(() => {
     if (role === "Manager") {
@@ -71,17 +63,9 @@ const JobDetail = (props: any) => {
       );
       setShowApply(!temp || false);
     }
-  }, [jobData]);
+  }, [jobData, applicationList, role]);
 
-  const form = useForm<FormValues>({
-    defaultValues: {
-      answer1: "",
-      answer2: "",
-      answer3: "",
-      answer4: "",
-    },
-  });
-  const { register, handleSubmit } = form;
+  const { register, handleSubmit } = useForm();
 
   const handleApplyJob = (e: any) => {
     e.preventDefault();
@@ -108,25 +92,26 @@ const JobDetail = (props: any) => {
       });
   };
 
-  const handleAnswerQuestionnaire = (data: FormValues) => {
+  const handleAnswerQuestionnaire = (data: any) => {
     const url = "http://localhost:8000/api/v1/users/modifyApplication";
+
+    const answers = jobData.questions.map(
+      (_: string, index: number) => data[`answer${index}`] || ""
+    );
 
     const body = {
       applicationId: application?._id,
       status: "grading",
-      answer1: data.answer1,
-      answer2: data.answer2,
-      answer3: data.answer3,
-      answer4: data.answer4,
+      answers: answers,
     };
 
     axios.post(url, body).then((res) => {
-      if (res.status == 200) {
-        toast.success("Accepted candidate");
+      if (res.status === 200) {
+        toast.success("Questionnaire submitted");
         location.reload();
         return;
       }
-      toast.error("Failed to accept candidate");
+      toast.error("Failed to submit questionnaire");
     });
   };
 
@@ -194,6 +179,11 @@ const JobDetail = (props: any) => {
             Description
           </div>
           <div className="text-[#686868] mx-2">{jobData.description}</div>
+          {role === "Applicant" && jobData.status === "open" && (
+            <div>
+              <SuggestedKeywords jobId={jobData._id} />
+            </div>
+          )}
         </div>
       </div>
 
@@ -206,120 +196,40 @@ const JobDetail = (props: any) => {
                   Fill Questionnaire
                 </div>
 
-                <form
-                  onSubmit={handleSubmit(handleAnswerQuestionnaire)}
-                  noValidate
-                >
-                  <div className="flex flex-row justify-between m-2">
-                    <div className="flex flex-col ">
-                      <div>
-                        <span className="font-semibold text-lg">1:</span>
-                        &nbsp;
-                        {jobData.question1}
-                      </div>
-                    </div>
-                  </div>
-                  <Stack spacing={2} width={400}>
-                    <TextField
-                      label="Answer 1"
-                      type="text"
-                      {...register("answer1")}
-                      sx={{
-                        "& label": {
-                          paddingLeft: (theme) => theme.spacing(1),
-                        },
-                        "& input": {
-                          paddingLeft: (theme) => theme.spacing(2.5),
-                        },
-                        "& fieldset": {
-                          paddingLeft: (theme) => theme.spacing(1.5),
-                          borderRadius: "10px",
-                        },
-                      }}
-                    />
-
-                    <div className="flex flex-row justify-between m-2">
-                      <div className="flex flex-col ">
-                        <div>
-                          <span className="font-semibold text-lg">2:</span>
-                          &nbsp;
-                          {jobData.question2}
+                <form onSubmit={handleSubmit(handleAnswerQuestionnaire)} noValidate>
+                  <Stack spacing={2} width={600}>
+                    {jobData.questions.map((question: string, index: number) => (
+                      <div key={index}>
+                        <div className="flex flex-row justify-between m-2">
+                          <div className="flex flex-col ">
+                            <div>
+                              <span className="font-semibold text-lg">
+                                {index + 1}:
+                              </span>
+                              &nbsp;
+                              {question}
+                            </div>
+                          </div>
                         </div>
+                        <TextField
+                          label={`Answer ${index + 1}`}
+                          type="text"
+                          {...register(`answer${index}`)}
+                          sx={{
+                            "& label": {
+                              paddingLeft: (theme) => theme.spacing(1),
+                            },
+                            "& input": {
+                              paddingLeft: (theme) => theme.spacing(2.5),
+                            },
+                            "& fieldset": {
+                              paddingLeft: (theme) => theme.spacing(1.5),
+                              borderRadius: "10px",
+                            },
+                          }}
+                        />
                       </div>
-                    </div>
-
-                    <TextField
-                      label="Answer 2"
-                      type="text"
-                      {...register("answer2")}
-                      sx={{
-                        "& label": {
-                          paddingLeft: (theme) => theme.spacing(1),
-                        },
-                        "& input": {
-                          paddingLeft: (theme) => theme.spacing(2.5),
-                        },
-                        "& fieldset": {
-                          paddingLeft: (theme) => theme.spacing(1.5),
-                          borderRadius: "10px",
-                        },
-                      }}
-                    />
-
-                    <div className="flex flex-row justify-between m-2">
-                      <div className="flex flex-col ">
-                        <div>
-                          <span className="font-semibold text-lg">3:</span>
-                          &nbsp;
-                          {jobData.question3}
-                        </div>
-                      </div>
-                    </div>
-
-                    <TextField
-                      label="Answer 3"
-                      type="text"
-                      {...register("answer3")}
-                      sx={{
-                        "& label": {
-                          paddingLeft: (theme) => theme.spacing(1),
-                        },
-                        "& input": {
-                          paddingLeft: (theme) => theme.spacing(2.5),
-                        },
-                        "& fieldset": {
-                          paddingLeft: (theme) => theme.spacing(1.5),
-                          borderRadius: "10px",
-                        },
-                      }}
-                    />
-                    <div className="flex flex-row justify-between m-2">
-                      <div className="flex flex-col ">
-                        <div>
-                          <span className="font-semibold text-lg">4:</span>
-                          &nbsp;
-                          {jobData.question4}
-                        </div>
-                      </div>
-                    </div>
-
-                    <TextField
-                      label="Answer 4"
-                      type="text"
-                      {...register("answer4")}
-                      sx={{
-                        "& label": {
-                          paddingLeft: (theme) => theme.spacing(1),
-                        },
-                        "& input": {
-                          paddingLeft: (theme) => theme.spacing(2.5),
-                        },
-                        "& fieldset": {
-                          paddingLeft: (theme) => theme.spacing(1.5),
-                          borderRadius: "10px",
-                        },
-                      }}
-                    />
+                    ))}
                     <Button
                       type="submit"
                       variant="contained"
@@ -371,3 +281,4 @@ const JobDetail = (props: any) => {
 };
 
 export default JobDetail;
+
