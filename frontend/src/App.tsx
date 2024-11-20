@@ -21,6 +21,7 @@ import ResumeViewer from "./components/Resume/ResumeViewer";
 import Notifications from "./Pages/Notifications/Notifications";
 import ForgotPasswordPage from "./Pages/Auth/ForgotPasswordPage";
 import ResetPasswordPage from "./Pages/Auth/ResetPasswordPage";
+import CoverLetter from "./Pages/CoverLetter/CoverLetter";
 
 const App = () => {
   return (
@@ -84,6 +85,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Resume />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coverletter"
+            element={
+              <ProtectedRoute>
+                <CoverLetter/>
               </ProtectedRoute>
             }
           />
