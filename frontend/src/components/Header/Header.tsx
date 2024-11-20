@@ -170,6 +170,13 @@ const Header = () => {
                   setMobileMenuOpen={setMobileMenuOpen}
                 />
               )}
+              {role === "Applicant" && (
+                <NavBarItem
+                  link="/coverletter"
+                  text="Upload Cover Letter"
+                  setMobileMenuOpen={setMobileMenuOpen}
+                />
+              )}
               <NavBarItem link="/logout" text="Log Out" />
             </ul>
           </div>
