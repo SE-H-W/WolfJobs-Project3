@@ -17,6 +17,7 @@ type UserState = {
   affiliation: string;
   resume: string;
   resumeId: string;
+  coverLetter: string; 
   unityId: string;
   studentId: string;
 };
@@ -38,6 +39,7 @@ type UserAction = {
   updateAffiliation: (affiliation: UserState["affiliation"]) => void;
   updateResume: (resume: UserState["resume"]) => void;
   updateResumeId: (resumeId: UserState["resumeId"]) => void;
+  updateCoverLetter: (coverLetter: UserState["coverLetter"]) => void;
   updateUnityId: (unityId: UserState["unityId"]) => void;
   updateStudentId: (studentId: UserState["studentId"]) => void;
 };
@@ -60,6 +62,7 @@ export const useUserStore = create<UserState & UserAction>()((set) => ({
   resume: "",
   resumeId: "",
   unityId: "",
+  coverLetter: "",
   studentId: "",
 
   updateName: (name: string) => {
@@ -115,5 +118,8 @@ export const useUserStore = create<UserState & UserAction>()((set) => ({
   },
   updateStudentId: (studentId: string) => {
     set(() => ({ studentId }));
+  },
+  updateCoverLetter: (coverLetter: string) => {
+    set(() => ({ coverLetter })); 
   },
 }));

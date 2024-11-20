@@ -16,6 +16,9 @@ const NavBar = ({ notificationCount }: { notificationCount: any }) => {
             {isLoggedIn && role == "Applicant" && (
               <NavBarItem link="/resume" text="Upload Resume" />
             )}
+            {isLoggedIn && role == "Applicant" && (
+              <NavBarItem link="/coverletter" text="Upload Cover Letter" />
+            )}
             {isLoggedIn && role === "Applicant" && (
               <NavBarItem
                 link="/notifications"

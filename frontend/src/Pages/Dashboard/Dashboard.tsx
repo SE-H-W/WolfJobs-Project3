@@ -30,6 +30,7 @@ const Dashboard = () => {
   const updateResumeId = useUserStore((state) => state.updateResumeId);
   const updateUnityId = useUserStore((state) => state.updateUnityId);
   const updateStudentId = useUserStore((state) => state.updateStudentId);
+  const updateCoverLetter = useUserStore((state) => state.updateCoverLetter);
 
   const role = useUserStore((state) => state.role);
   const managerId = useUserStore((state) => state.id);
@@ -73,6 +74,7 @@ const Dashboard = () => {
       updateResumeId(userInfo.resumeId);
       updateUnityId(userInfo.unityId);
       updateStudentId(userInfo.studentId);
+      updateCoverLetter(userInfo.coverLetter);
     }
   }, []);
 
@@ -120,6 +122,25 @@ const Dashboard = () => {
     }
   }, [role, jobList, applicationList]);
 
+  const handleViewCoverLetter = async (applicantId: string) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/coverletter/getCoverLetter/${applicantId}`,
+        { responseType: "blob" }
+      );
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `CoverLetter_${applicantId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error fetching cover letter:", error);
+      toast.error("Failed to fetch cover letter");
+    }
+  };
+
   return (
     <>
       <div className="content bg-slate-50">
@@ -144,7 +165,22 @@ const Dashboard = () => {
                     : "view-application";
                 }
 
-                return <JobListTile data={job} key={job._id} action={action} />;
+                // return <JobListTile data={job} key={job._id} action={action} />;
+                return (<JobListTile data={job} key={job._id} action={action}>
+                  {role === "Manager" && (
+                    <Button
+                      onClick={() => handleViewCoverLetter(job._id)}
+                      variant="outlined"
+                      style={{
+                        marginTop: "8px",
+                        textTransform: "none",
+                        color: "#FF5353",
+                      }}
+                    >
+                      View Cover Letter
+                    </Button>
+                  )}
+                </JobListTile>)
               })}
             </div>
           </>
