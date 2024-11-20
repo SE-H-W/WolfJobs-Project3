@@ -22,6 +22,12 @@ const JobScreening = (props: any) => {
   const [loadingMatch, setLoadingMatch] = useState<{ [key: string]: boolean }>(
     {}
   );
+  const [coverLetterText, setCoverLetterText] = useState<{
+    [key: string]: string;
+  }>({});
+  const [loadingCoverLetter, setLoadingCoverLetter] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const applicationList = useApplicationStore((state) => state.applicationList);
 
@@ -33,6 +39,49 @@ const JobScreening = (props: any) => {
     );
   }, [searchParams, applicationList, jobData._id]);
 
+  const handleViewCoverLetter = async (applicantId: string) => {
+    try {
+      const response = await axios.get(
+        `${API_ROOT}/coverletter/getCoverLetter/${applicantId}`,
+        { responseType: "blob" }
+      );
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `CoverLetter_${applicantId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error fetching cover letter:", error);
+      toast.error("Failed to fetch cover letter");
+    }
+  };
+
+  const handleParseCoverLetter = async (applicantId: string) => {
+    setLoadingCoverLetter((prev) => ({ ...prev, [applicantId]: true }));
+    try {
+      const response = await axios.post(`${API_ROOT}/coverletter/parseCoverLetter`, {
+        userId: applicantId,
+      });
+
+      if (response.data.success) {
+        setCoverLetterText((prev) => ({
+          ...prev,
+          [applicantId]: response.data.coverLetterText,
+        }));
+        toast.success("Cover letter parsed successfully");
+      } else {
+        toast.error("Failed to parse cover letter");
+      }
+    } catch (error) {
+      console.error("Error parsing cover letter:", error);
+      toast.error("An error occurred while parsing cover letter");
+    } finally {
+      setLoadingCoverLetter((prev) => ({ ...prev, [applicantId]: false }));
+    }
+  };
+  
   const handleAccept = async (applicationId: string) => {
     const modifyApplicationUrl = `${API_ROOT}/users/modifyApplication`;
 
@@ -199,6 +248,29 @@ const JobScreening = (props: any) => {
                     >
                       View Resume
                     </a>
+                  </div>
+                  <div className="flex justify-center px-2 py-1 mr-2 border border-gray-300 rounded-md">
+                    <button
+                      onClick={() => handleViewCoverLetter(item.applicantid)}
+                      className="text-red-500"
+                    >
+                      View Cover Letter
+                    </button>
+                  </div>
+                  <div className="flex justify-center px-2 py-1 mr-2 border border-gray-300 rounded-md">
+                    <button
+                      onClick={() => handleParseCoverLetter(item.applicantid)}
+                      disabled={loadingCoverLetter[item.applicantid]}
+                      className={`text-red-500 ${
+                        loadingCoverLetter[item.applicantid]
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      }`}
+                    >
+                      {loadingCoverLetter[item.applicantid]
+                        ? "Parsing..."
+                        : "Parse Cover Letter"}
+                    </button>
                   </div>
                   <div className="flex justify-center px-2 py-1 mr-2 border border-gray-300 rounded-md">
                     <button
