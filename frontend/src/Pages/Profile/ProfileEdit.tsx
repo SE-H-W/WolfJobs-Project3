@@ -68,6 +68,19 @@ const ProfileEdit = ({ props }: { props: any }) => {
   const userId = useUserStore((state) => state.id);
   const password = useUserStore((state) => state.password);
 
+  const updateName = useUserStore((state) => state.updateName);
+  
+  const updateAddress = useUserStore((state) => state.updateAddress);
+  const updateSkills = useUserStore((state) => state.updateSkills);
+  
+  const updatePhonenumber = useUserStore((state) => state.updatePhonenumber);
+  const updateGender = useUserStore((state) => state.updateGender);
+  
+  const updateUnityId = useUserStore((state) => state.updateUnityId);
+  const updateAvailability = useUserStore((state) => state.updateAvailability);
+  
+  const updateStudentId = useUserStore((state) => state.updateStudentId);
+
   // const navigate = useNavigate();
 
   const { register, handleSubmit, formState } = form;
@@ -97,6 +110,15 @@ const ProfileEdit = ({ props }: { props: any }) => {
         return;
       }
       toast.success("Saved profile");
+      updateName(data.name);
+
+      updateAddress(data.address);
+      updatePhonenumber(data.phonenumber)
+      updateUnityId(data.unityId)
+      updateStudentId(data.studentId)
+      updateSkills(data.skills)
+      updateGender(data.gender)
+      updateAvailability(availabilityDrop)
       // login(email, password, navigate);
     });
   };
