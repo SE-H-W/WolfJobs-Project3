@@ -39,6 +39,10 @@ const Resume: React.FC = () => {
           toast.success(
             "Resume Uploaded Successfully. Sign out and sign back in to see changes!"
           );
+          const resumeId = response.data.resumeId;
+
+          updateResumeId(resumeId);
+          updateResume(response.data.resume)
         }
       } catch (error) {
         console.error("Error uploading the resume", error);
