@@ -59,11 +59,11 @@ const JobDetail = (props: any) => {
       setShowApply(false);
     } else {
       const temp: Application | undefined = applicationList.find(
-        (item) => jobData._id === item.jobid
+        (item) => jobData._id === item.jobid && item.applicantid === userId
       );
       setShowApply(!temp || false);
     }
-  }, [jobData, applicationList, role]);
+  }, [jobData, applicationList, role, userId]);
 
   const { register, handleSubmit } = useForm();
 
