@@ -16,7 +16,7 @@
 [![Language Count](https://img.shields.io/github/languages/count/SE-H-W/WolfJobs-Project3)](https://GitHub.com/SE-H-W/WolfJobs-Project3/)
 [![Downloads](https://img.shields.io/github/downloads/SE-H-W/WolfJobs-Project3/total)](https://GitHub.com/SE-H-W/WolfJobs-Project3/)
 [![Top Language](https://img.shields.io/github/languages/top/SE-H-W/WolfJobs-Project3)](https://GitHub.com/SE-H-W/WolfJobs-Project3/)
-[![DOI](https://zenodo.org/badge/882011816.svg)](https://doi.org/10.5281/zenodo.14027435)
+[![DOI](https://zenodo.org/badge/891089299.svg)](https://doi.org/10.5281/zenodo.14226880)
 [![Release](https://img.shields.io/github/v/release/SE-H-W/WolfJobs-Project3)](https://gitHub.com/SE-H-W/WolfJobs-Project3)
 [![codecov](https://codecov.io/gh/abhandary14/WolfJobsV2Master/graph/badge.svg?token=3S7IP79L0B)](https://codecov.io/gh/abhandary14/WolfJobsV2Master)
 
