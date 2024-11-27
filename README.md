@@ -7,8 +7,8 @@
 [![Frontend Tests](https://github.com/SE-Fall24-G73/WolfJobsV2/actions/workflows/build-frontend-test-checker.yml/badge.svg)](https://github.com/SE-Fall24-G73/WolfJobsV2/actions/workflows/build-frontend-test-checker.yml)
 [![Backend Tests](https://github.com/SE-Fall24-G73/WolfJobsV2/actions/workflows/build-backend-test-checker.yml/badge.svg)](https://github.com/SE-Fall24-G73/WolfJobsV2/actions/workflows/build-backend-test-checker.yml)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
-[![Issues](https://img.shields.io/github/issues/SE-Fall24-G73/WolfJobsV2)](https://GitHub.com/SE-Fall24-G73/WolfJobsV2/)
-[![Issues Closed](https://img.shields.io/github/issues-closed/SE-Fall24-G73/WolfJobsV2)](https://GitHub.com/SE-Fall24-G73/WolfJobsV2/)
+[![Issues](https://img.shields.io/github/issues/SE-H-W/WolfJobs-Project3)](https://GitHub.com/SE-H-W/WolfJobs-Project3/)
+[![Issues Closed](https://img.shields.io/github/issues-closed/SE-H-W/WolfJobs-Project3)](https://GitHub.com/SE-H-W/WolfJobs-Project3/)
 ![Last Commit](https://img.shields.io/github/last-commit/SE-H-W/WolfJobs-Project3)
 ![Lines of Code](https://tokei.rs/b1/github/SE-H-W/WolfJobs-Project3)
 [![Repo Size](https://img.shields.io/github/repo-size/SE-H-W/WolfJobs-Project3)](https://GitHub.com/SE-H-W/WolfJobs-Project3/)
@@ -17,7 +17,7 @@
 [![Downloads](https://img.shields.io/github/downloads/SE-H-W/WolfJobs-Project3/total)](https://GitHub.com/SE-H-W/WolfJobs-Project3/)
 [![Top Language](https://img.shields.io/github/languages/top/SE-H-W/WolfJobs-Project3)](https://GitHub.com/SE-H-W/WolfJobs-Project3/)
 [![DOI](https://zenodo.org/badge/882011816.svg)](https://doi.org/10.5281/zenodo.14027435)
-[![Release](https://img.shields.io/github/v/release/SE-Fall24-G73/WolfJobsV2)](https://gitHub.com/SE-Fall24-G73/WolfJobsV2)
+[![Release](https://img.shields.io/github/v/release/SE-H-W/WolfJobs-Project3)](https://gitHub.com/SE-H-W/WolfJobs-Project3)
 [![codecov](https://codecov.io/gh/abhandary14/WolfJobsV2Master/graph/badge.svg?token=3S7IP79L0B)](https://codecov.io/gh/abhandary14/WolfJobsV2Master)
 
 <!-- ![Static Badge](https://img.shields.io/badge/any_text-i_like-blue) -->
