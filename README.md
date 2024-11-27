@@ -34,13 +34,12 @@
 
 # What's New: 🚀
 
- - **New Screens Added!**
- - Forgot and Reset Passwords Screens
- - Notifications Tab
- - Exclusively Responsive Screens for all sizes
- - Resume ATS Parser
- - Google SignIn
-and what not?
+- **Additional Document Uploads:** Enables candidates to upload cover letters alongside resumes for comprehensive applications.
+- **Dynamic Recruiter Questionnaires:** Allows recruiters to customize the type and number of questions for tailored assessments.
+- **Resume Keyword Insights:** Identifies missing keywords in resumes to improve alignment with job descriptions.
+- **Expanded Application Flexibility:** Supports multiple users applying to the same job for smoother recruitment.
+- **Enhanced State Management:** Ensures seamless user sessions with real-time updates and persistent navigation.
+- and what not?
 
 ### 🌟 Enhanced User Experience
 
